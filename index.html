@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<script src="WorCode.js">
+		</script>
+	</head>
+	<body>
+		<div>
+			<textarea id="editor"></textarea>
+		</div>
+		<div id="console">
+		</div>
+		<div>
+			<button onclick="WorCode.execute()">
+			Execute
+			</button>
+		</div>
+		<script type="text/javascript">
+			WorCode.init();
+			WorCode.setEditor(document.getElementById("editor"));
+			WorCode.setConsole(document.getElementById("console"));
+		</script>
+	</body>
+</html>
