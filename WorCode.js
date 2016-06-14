@@ -1,4 +1,4 @@
-var WorCode = (function() {
+var WorCode = (function(document) {
     var interpreter = {
         datatype: {
             primary: {
@@ -109,7 +109,7 @@ var WorCode = (function() {
             var types = interpreter.datatype.primary;
             var validType = null;
             if (extracted) {
-            	extracted.shift();
+                extracted.shift();
                 for (var type in types) {
                     if (extracted[0] == type) {
                         validType = types[type];
@@ -129,7 +129,7 @@ var WorCode = (function() {
             var types = interpreter.datatype.composite;
             var validType = null;
             if (extracted) {
-            	extracted.shift();
+                extracted.shift();
                 for (var type in types) {
                     if (extracted[0] == type) {
                         validType = types[type];
@@ -147,7 +147,7 @@ var WorCode = (function() {
             var regexCode = /(\w+) (\W*|\w) (.*)/g;
             var extracted = regexCode.exec(code);
             if (extracted) {
-            	extracted.shift();
+                extracted.shift();
                 return extracted.join(" ");
             }
             return null;
@@ -156,7 +156,7 @@ var WorCode = (function() {
             var regexCode = /(\w+) (.*)/g;
             var extracted = regexCode.exec(code);
             if (extracted) {
-            	extracted.shift();
+                extracted.shift();
                 if (extracted[0] === "print") return "$.print(" + extracted[1] + ")";
             }
             return null;
@@ -181,8 +181,23 @@ var WorCode = (function() {
         config: {
             editor: null,
             console: null,
+            errors: null,
         },
-        init: function() {
+        init: function(c) {
+        	$.config.editor = document.getElementById("editor");
+        	$.config.console = document.getElementById("console");
+        	$.config.errors = document.getElementById("errors");
+            if (c) {
+                if (c.editor) {
+                    $.config.editor = document.getElementById(c.editor);
+                }
+                if (c.console) {
+                    $.config.console = document.getElementById(c.console);
+                }
+                if (c.errors) {
+                    $.config.errors = document.getElementById(c.errors);
+                }
+            }
             $.interpreter = interpreter;
         },
         setEditor: function(element) {
@@ -193,16 +208,27 @@ var WorCode = (function() {
         },
         execute: function() {
             if ($.interpreter) {
+            	$.clear();
                 $.interpreter.console = $.config.console;
                 $.interpreter.code = $.config.editor.value;
                 $.interpreter.read();
             } else {
-                console.log("Intepreter is not define.")
+                console.log("Intepreter is not define.");
+                $.printError("Intepreter is not define.")
             }
+        },
+        clear: function() {
+            $.config.console.innerHTML = "";
         },
         print: function(text) {
             $.config.console.innerHTML += "<br/>" + text;
         },
+        clearError: function() {
+            $.config.console.innerHTML = "";
+        },
+        printError: function(text) {
+            $.config.errors.innerHTML += "<br/>" + text;
+        },
     };
     return $;
-})();
+})(document);

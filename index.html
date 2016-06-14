@@ -1,23 +1,25 @@
 <html>
 	<head>
-		<script src="WorCode.js">
-		</script>
+		<script src="WorCode.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Muli:300' rel='stylesheet' type='text/css'>
+		<link href="style.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
+		<div class="header">
+			<div class="branding"><h1>Wor<strong>Code</strong></h1></div>
+		</div>
 		<div>
 			<textarea id="editor"></textarea>
 		</div>
-		<div id="console">
-		</div>
+		<div id="console"></div>
+		<div id="error"></div>
 		<div>
-			<button onclick="WorCode.execute()">
-			Execute
-			</button>
+			<button onclick="WorCode.execute()">Execute</button>
 		</div>
 		<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function(event) {
 			WorCode.init();
-			WorCode.setEditor(document.getElementById("editor"));
-			WorCode.setConsole(document.getElementById("console"));
+		});
 		</script>
 	</body>
 </html>
