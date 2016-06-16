@@ -8,13 +8,25 @@
 		<div class="header">
 			<div class="branding"><h1>Wor<strong>Code</strong></h1></div>
 		</div>
-		<div>
-			<textarea id="editor"></textarea>
+		<div class="wrapper">
+			<div>
+				<button class="execute" onclick="WorCode.execute()">Execute</button>
+			</div>
+			<div class="editor-wrapper">
+				<textarea id="editor"></textarea>
+				<span class="tag">Editor</span>
+				
+			</div>
+			<div class="console-wrapper">
+				<div id="console"></div>
+				<span class="tag">Console</span>
+				<button class="clear" onclick="WorCode.clear();">Clear</button>
+			</div>
 		</div>
-		<div id="console"></div>
-		<div id="error"></div>
-		<div>
-			<button onclick="WorCode.execute()">Execute</button>
+		<div class="error -wrapper">
+			<div id="errors"></div>
+			<span class="tag">Errors</span>
+			<button class="clear" onclick="WorCode.clearError();">Clear</button>
 		</div>
 		<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function(event) {

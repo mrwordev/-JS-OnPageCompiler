@@ -171,6 +171,10 @@ var WorCode = (function(document) {
                         eval(c[idx]);
                     } catch (e) {
                         console.log(e);
+                        var stack = e.stack;
+                        stack = stack.replace(/( at )/g, "<br/> at ");
+                        $.printError(e.messages);
+                        $.printError(stack);
                     }
                 }
             })($, interpreter, lines);
@@ -208,13 +212,13 @@ var WorCode = (function(document) {
         },
         execute: function() {
             if ($.interpreter) {
-            	$.clear();
+            	//$.clear();
                 $.interpreter.console = $.config.console;
                 $.interpreter.code = $.config.editor.value;
                 $.interpreter.read();
             } else {
                 console.log("Intepreter is not define.");
-                $.printError("Intepreter is not define.")
+                $.printError("Intepreter is not define.");
             }
         },
         clear: function() {
@@ -224,7 +228,7 @@ var WorCode = (function(document) {
             $.config.console.innerHTML += "<br/>" + text;
         },
         clearError: function() {
-            $.config.console.innerHTML = "";
+            $.config.errors.innerHTML = "";
         },
         printError: function(text) {
             $.config.errors.innerHTML += "<br/>" + text;
